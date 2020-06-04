@@ -6,24 +6,54 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'Who directed \'2001\': A Space Odyssey',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'Stanley Kubrik',
+        'Ridley Scott,',
+        'John Carpenter',
+        'Steven Spielberg'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'Stanley Kubrik'
     },
     {
-      question: 'What is the current year?',
+      question: 'Who wrote the screenplay for \'2001: A Space Odyssey\'',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        'Aruthur C. Clarke',
+        'Phillip K. Dick',
+        'Rod Serling',
+        'Frank Herbert'
       ],
-      correctAnswer: '2019'
+      correctAnswer: 'Arthur C. Clarke'
+    },
+    {
+      question: 'What was the name of the spacecraft?',
+      answers: [
+        'Discovery One',
+        'Enterprise',
+        'Nostromo',
+        'Nebuchadnezzar'
+      ],
+      correctAnswer: 'Discovery One'
+    },
+    {
+      question: 'Who pilots the Discovery One?',
+      answers: [
+        'Dr. David Bowman',
+        'Hakaru Sulu',
+        'Naomi',
+        'Corbin Dallas'
+      ],
+      correctAnswer: 'Dr. David Bowman'
+    },
+    {
+      question: '1. What is the name of the AI computer onboard Discovery One?',
+      answers: [
+        'HAL-9000',
+        'GERTY',
+        'David',
+        'Rehoboam'
+      ],
+      correctAnswer: 'HAL-9000'
     }
   ],
   quizStarted: false,

@@ -59,7 +59,8 @@ const store = {
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  outOf: 0
 };
 
 /**
@@ -168,7 +169,7 @@ function renderQuestionCount(){
 }
 function renderScoreCount(){
   return $('.score-count').html(
-    `Score: ${store.score} / ${store.questionNumber}`
+    `Score: ${store.score} / ${store.outOf}`
   );
 }
 
@@ -177,7 +178,7 @@ function renderScoreCount(){
 
 // These functions handle events (submit, click, etc)
 function startGame(){
-  
+  store.questionNumber = 1;
   $('main').on('click', 'button', () => {
     event.preventDefault();
     renderQuestionPage();

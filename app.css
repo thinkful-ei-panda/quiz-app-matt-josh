@@ -7,12 +7,10 @@
   *
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&family=Roboto:wght@300;400;500&display=swap');
 
 
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
-body, html {
+main {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     font-weight: 300;
@@ -21,8 +19,9 @@ body, html {
     text-shadow: 1px 1px 2px black;
     margin:0;
     height: 100vh;
-    width:100%;
+    width: 100%;
 }
+
 
 .container {
     align-items: center;
@@ -35,7 +34,7 @@ body, html {
 }
 
 .start {
-    background: url("/img/2001.jpg") center center / cover no-repeat;
+    background: url("/images/2001.jpg") center center / cover no-repeat;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -45,8 +44,8 @@ body, html {
 }
 
 h1, h2, h3 {
-    font-family: 'Futura', sans-serif;
-    font-weight:100;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
     color:#8AADCC;
     margin: 0;
 }
@@ -60,11 +59,15 @@ h1 {
     flex-direction: column;
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
+.header {    
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.score-count, .question-count {
+  margin-bottom: 20px;
 }
 
 .item {

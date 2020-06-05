@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable strict */
 /**
  * Example store structure
@@ -8,12 +9,12 @@ const store = {
     {
       question: 'Who directed \'2001\': A Space Odyssey',
       answers: [
-        'Stanley Kubrik',
+        'Stanley Kubrick',
         'Ridley Scott,',
         'John Carpenter',
         'Steven Spielberg'
       ],
-      correctAnswer: 'Stanley Kubrik'
+      correctAnswer: 'Stanley Kubrick'
     },
     {
       question: 'Who wrote the screenplay for \'2001: A Space Odyssey\'',
@@ -80,10 +81,156 @@ const store = {
 
 // These functions return HTML templates
 
+function startPage(){
+  return $('main').html(
+    `<div class="container">
+        <div class="start">
+          <div class="group">
+              <div class="item">
+                <h1>2001: A Space Odyssey: The Quiz</h1>
+                <p> Daisy, daisy, give me your answer, do.</p>
+              </div>
+              <div class="button-center">
+                <button type="submit">Start</button>
+            </div>
+        </div>
+      </div>
+    </div>`);
+}
+function endPage(){
+  return $('main').html(
+    `<div class="container">
+      <div class="group">
+        <div class="item">
+            <h2>Final Score</h2>
+            <p>0 / 0</p>
+        </div>
+        <div class="button-center">
+            <button>Restart</button>
+        </div>
+      </div>
+    </div>`
+  );
+}
+function questionPage(){
+  
+  return $('main').html(
+    `<div class="container">
+    <div class="group">
+        <div class="header">
+            <div class="question-count"></div>
+            <div class="score-count"></div>
+        </div>
+        <div class="item">
+            <h2>Who directed '2001: A Space Odyssey'?</h2>
+        </div>
+        <div>
+            <form>
+                <span><input type="radio" id="Ridley Scott" name="answers" value="answer1" required />
+                <label for="rb-answer1">Ridley Scott</label></span>
+                <span><input type="radio" id="John Carpenter" name="answers" value="John Carpenter" />
+                <label for="answer2">John Carpenter</label></span>
+                <span><input type="radio" id="Stanley Kubrick" name="answers" value="Stanley Kubrick">
+                <label for="Stanley Kubrick">Stanley Kubrick</label></span>
+                <span><input type="radio" id="Steven Spielberg" name="answers" value="Steven Spielberg" />
+                <label for="Steven Spielberg">Steven Spielberg</label></span>
+                <div class="button-center">
+                    <button id="js-button" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>`
+  );
+}
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
+function renderStartPage(){
+  startPage();
+  
+}
+
+function renderEndPage(){
+  endPage();
+
+}
+function renderQuestionPage(){
+  questionPage();
+  renderQuestionCount();
+  renderScoreCount();
+  
+  
+}
+
+function renderQuestionCount(){
+  return $('.question-count').html(`Question: ${store.questionNumber}/${store.questions.length}`);
+}
+function renderScoreCount(){
+  return $('.score-count').html(
+    `Score: ${store.score} / ${store.questionNumber}`
+  );
+}
+
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
+function startGame(){
+  
+  $('main').on('click', 'button', () => {
+    event.preventDefault();
+    renderQuestionPage();
+    
+  });
+}
+
+function restartGame(){
+  $('main').on('click', 'button', () => {
+    event.preventDefault();
+    renderStartPage();
+  });
+}
+
+function handleSubmitAnswer(){
+
+  $('main').on('click', '#js-button', function(event) {
+   
+    let selectedAnswer = $('input[type="radio"]:checked').val();
+  
+    console.log(test);
+    
+    checkAnswer(selectedAnswer);
+  });
+
+}
+
+function checkAnswer(selected){
+  const correctAnswer = store.questions[store.questionNumber].correctAnswer;
+
+  console.log(correctAnswer);
+  // if (selected === correctAnswer){
+  //   renderCorrectAnswerPage();
+  // } else {
+  //   renderWrongAnswerPage();
+  // }
+
+}
+
+
+function answerQuestion(){}
+
+function game(){
+  renderStartPage();
+  startGame();
+  handleSubmitAnswer();
+  
+  
+  
+}
+
+
+
+
+
+$(game);

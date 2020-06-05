@@ -144,28 +144,66 @@ function questionPage() {
     </div>`
   );
 }
+function correctAnswerPage() {
+  return $('main').html(`<div class="container">
+            <div class="group">
+              <div class="header">
+                <div class="question-count"></div>
+                <div class="score-count"></div>
+              </div>
+              <div class="item"><h2>Correct</h2><p>The correct answer was "${store.questions[store.questionNumber].correctAnswer}".</p>
+              </div>
+              <div class="button-center">
+                <button id="js-next">Next</button>
+              </div>
+            </div>
+          </div>`
+  );
+}
+function wrongAnswerPage() {
+  
+  return $('main').html(
+    `<div class="container">
+      <div class="group">
+        <div class="header">
+          <div class="question-count"></div>
+          <div class="score-count"></div>
+        </div>
+        <div class="item"><h2>Sorry</h2><p>The correct answer was "${store.questions[store.questionNumber].correctAnswer}.</p></div>
+        <div class="button-center">
+          <button id="js-next">Next</button>
+        </div>
+      </div>
+    </div>`
+  );
+  
+}
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 function renderStartPage() {
   startPage();
-
 }
-
 function renderEndPage() {
   endPage();
-
 }
 function renderQuestionPage() {
   questionPage();
   renderQuestionCount();
   renderScoreCount();
-
-
 }
-
+function renderCorrectAnswerPage(){
+  correctAnswerPage();
+  renderQuestionCount();
+  renderScoreCount();
+}
+function renderWrongAnswerPage(){
+  wrongAnswerPage();
+  renderQuestionCount();
+  renderScoreCount();
+}
 function renderQuestionCount() {
-  return $('.question-count').html(`Question: ${store.questionNumber}/${store.questions.length}`);
+  return $('.question-count').html(`Question: ${store.questionNumber+1}/${store.questions.length}`);
 }
 function renderScoreCount() {
   return $('.score-count').html(
@@ -196,37 +234,28 @@ function handleSubmitAnswer() {
     event.preventDefault();
     let selectedAnswer = $("input[name='answers']:checked").val();
     checkAnswer(selectedAnswer);
+    console.log(selectedAnswer)
   });
 }
 
-
-
 function checkAnswer(selected) {
-  const correctAnswer = store.questions[store.questionNumber].correctAnswer;
-
-  console.log((selected === correctAnswer));
-  //   if (selected === correctAnswer){
-  //     renderCorrectAnswerPage();
-  //   } else {
-  //     renderWrongAnswerPage();
-  //   }
-
+  const correctAnswer = store.questions[store.questionNumber].correctAnswer; 
+  console.log(correctAnswer)
+  if (selected === correctAnswer){
+    store.score++;
+    store.outOf++;
+    renderCorrectAnswerPage();
+  } else {
+    store.outOf++;
+    renderWrongAnswerPage();
+  }
 }
-
-
-function answerQuestion() { }
 
 function game() {
   renderStartPage();
   startGame();
   handleSubmitAnswer();
-
-
-
+  
 }
-
-
-
-
 
 $(game);

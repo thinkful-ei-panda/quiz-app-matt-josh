@@ -10,7 +10,7 @@ const store = {
       question: 'Who directed \'2001\': A Space Odyssey',
       answers: [
         'Stanley Kubrick',
-        'Ridley Scott,',
+        'Ridley Scott',
         'John Carpenter',
         'Steven Spielberg'
       ],
@@ -47,7 +47,7 @@ const store = {
       correctAnswer: 'Dr. David Bowman'
     },
     {
-      question: '1. What is the name of the AI computer onboard Discovery One?',
+      question: 'What is the name of the AI computer onboard Discovery One?',
       answers: [
         'HAL-9000',
         'GERTY',
@@ -122,18 +122,18 @@ function questionPage(){
             <div class="score-count"></div>
         </div>
         <div class="item">
-            <h2>Who directed '2001: A Space Odyssey'?</h2>
+            <h2>${store.questions[store.questionNumber].question}</h2>
         </div>
         <div>
-            <form>
-                <span><input type="radio" id="Ridley Scott" name="answers" value="answer1" required />
-                <label for="rb-answer1">Ridley Scott</label></span>
-                <span><input type="radio" id="John Carpenter" name="answers" value="John Carpenter" />
-                <label for="answer2">John Carpenter</label></span>
-                <span><input type="radio" id="Stanley Kubrick" name="answers" value="Stanley Kubrick">
-                <label for="Stanley Kubrick">Stanley Kubrick</label></span>
-                <span><input type="radio" id="Steven Spielberg" name="answers" value="Steven Spielberg" />
-                <label for="Steven Spielberg">Steven Spielberg</label></span>
+            <form id="js-form">
+                <span><input type="radio" id="${store.questions[store.questionNumber].answers[0]}" name="answers" value="${store.questions[store.questionNumber].answers[0]}" />
+                <label for="answer1">${store.questions[store.questionNumber].answers[0]}</label></span>
+                <span><input type="radio" id="${store.questions[store.questionNumber].answers[1]}" name="answers" value="${store.questions[store.questionNumber].answers[1]}" />
+                <label for="answer2">${store.questions[store.questionNumber].answers[1]}</label></span>
+                <span><input type="radio" id="${store.questions[store.questionNumber].answers[2]}" name="answers" value="${store.questions[store.questionNumber].answers[2]}" />
+                <label for="answer3">${store.questions[store.questionNumber].answers[2]}</label></span>
+                <span><input type="radio" id="${store.questions[store.questionNumber].answers[3]}" name="answers" value="${store.questions[store.questionNumber].answers[3]}" />
+                <label for="answer4">${store.questions[store.questionNumber].answers[3]}</label></span>
                 <div class="button-center">
                     <button id="js-button" type="submit">Submit</button>
                 </div>
@@ -193,22 +193,23 @@ function restartGame(){
 }
 
 function handleSubmitAnswer(){
+  $('main').on('click', 'button', event => {
+    event.preventDefault();
+    let selectedAnswer = $("input[name='answers']:checked").val();
+    console.log(selectedAnswer);
+    store.questionNumber += 1;
+    console.log(store.questionNumber);
 
-  $('main').on('click', '#js-button', function(event) {
-   
-    let selectedAnswer = $('input[type="radio"]:checked').val();
-  
-    console.log(test);
-    
     checkAnswer(selectedAnswer);
   });
-
 }
+
+
 
 function checkAnswer(selected){
   const correctAnswer = store.questions[store.questionNumber].correctAnswer;
 
-  console.log(correctAnswer);
+  // console.log(correctAnswer);
   // if (selected === correctAnswer){
   //   renderCorrectAnswerPage();
   // } else {

@@ -82,7 +82,7 @@ const store = {
 
 // These functions return HTML templates
 
-function startPage(){
+function startPage() {
   return $('main').html(
     `<div class="container">
         <div class="start">
@@ -92,13 +92,13 @@ function startPage(){
                 <p> Daisy, daisy, give me your answer, do.</p>
               </div>
               <div class="button-center">
-                <button type="submit">Start</button>
+                <button id="startButton" type="submit">Start</button>
             </div>
         </div>
       </div>
     </div>`);
 }
-function endPage(){
+function endPage() {
   return $('main').html(
     `<div class="container">
       <div class="group">
@@ -107,14 +107,14 @@ function endPage(){
             <p>0 / 0</p>
         </div>
         <div class="button-center">
-            <button>Restart</button>
+            <button id="restartButton">Restart</button>
         </div>
       </div>
     </div>`
   );
 }
-function questionPage(){
-  
+function questionPage() {
+
   return $('main').html(
     `<div class="container">
     <div class="group">
@@ -147,27 +147,27 @@ function questionPage(){
 /********** RENDER FUNCTION(S) **********/
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
-function renderStartPage(){
+function renderStartPage() {
   startPage();
-  
+
 }
 
-function renderEndPage(){
+function renderEndPage() {
   endPage();
 
 }
-function renderQuestionPage(){
+function renderQuestionPage() {
   questionPage();
   renderQuestionCount();
   renderScoreCount();
-  
-  
+
+
 }
 
-function renderQuestionCount(){
+function renderQuestionCount() {
   return $('.question-count').html(`Question: ${store.questionNumber}/${store.questions.length}`);
 }
-function renderScoreCount(){
+function renderScoreCount() {
   return $('.score-count').html(
     `Score: ${store.score} / ${store.outOf}`
   );
@@ -177,58 +177,52 @@ function renderScoreCount(){
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
-function startGame(){
-  store.questionNumber = 1;
-  $('main').on('click', 'button', () => {
+function startGame() {
+  $('main').on('click', '#startButton', () => {
     event.preventDefault();
     renderQuestionPage();
-    
   });
 }
 
-function restartGame(){
-  $('main').on('click', 'button', () => {
+function restartGame() {
+  $('main').on('click', '#restartButton', () => {
     event.preventDefault();
     renderStartPage();
   });
 }
 
-function handleSubmitAnswer(){
-  $('main').on('click', 'button', event => {
+function handleSubmitAnswer() {
+  $('main').on('click', '#js-button', (event) => {
     event.preventDefault();
     let selectedAnswer = $("input[name='answers']:checked").val();
-    console.log(selectedAnswer);
-    store.questionNumber += 1;
-    console.log(store.questionNumber);
-
     checkAnswer(selectedAnswer);
   });
 }
 
 
 
-function checkAnswer(selected){
+function checkAnswer(selected) {
   const correctAnswer = store.questions[store.questionNumber].correctAnswer;
 
-  // console.log(correctAnswer);
-  // if (selected === correctAnswer){
-  //   renderCorrectAnswerPage();
-  // } else {
-  //   renderWrongAnswerPage();
-  // }
+  console.log((selected === correctAnswer));
+  //   if (selected === correctAnswer){
+  //     renderCorrectAnswerPage();
+  //   } else {
+  //     renderWrongAnswerPage();
+  //   }
 
 }
 
 
-function answerQuestion(){}
+function answerQuestion() { }
 
-function game(){
+function game() {
   renderStartPage();
   startGame();
   handleSubmitAnswer();
-  
-  
-  
+
+
+
 }
 
 

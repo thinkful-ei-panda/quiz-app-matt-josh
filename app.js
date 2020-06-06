@@ -41,7 +41,7 @@ const store = {
       answers: [
         'Hakaru Sulu',
         'Dr. David Bowman',
-        'Naomi',
+        'Niobe',
         'Corbin Dallas'
       ],
       correctAnswer: 'Dr. David Bowman'

@@ -236,13 +236,6 @@ function startGame() {
   });
 }
 
-function restartGame() {
-  $('main').on('click', '#restartButton', () => {
-    event.preventDefault();
-    renderStartPage();
-  });
-}
-
 function handleSubmitAnswer() {
   $('main').on('click', '#js-button', (event) => {
     event.preventDefault();

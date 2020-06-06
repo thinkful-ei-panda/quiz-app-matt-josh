@@ -33,7 +33,7 @@ main {
 }
 
 .start, .end {
-    background: url("/images/2001.jpg") center center / cover no-repeat;
+    background: url("https://thinkful-ei-panda.github.io/quiz-app-matt-josh/images/2001.jpg") center center / cover no-repeat;
     align-items: center;
     display: flex;
     flex-direction: column;

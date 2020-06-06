@@ -1,10 +1,8 @@
 /* eslint-disable quotes */
 /* eslint-disable strict */
-/**
- * Example store structure
- */
+
+// Data Store
 const store = {
-  // 5 or more questions are required
   questions: [
     {
       question: 'Who directed \'2001\': A Space Odyssey',
@@ -63,25 +61,10 @@ const store = {
   outOf: 0
 };
 
-/**
- * 
- * Technical requirements:
- * 
- * Your app should include a render() function, that regenerates the view each time the store is updated. 
- * See your course material, consult your instructor, and reference the slides for more details.
- *
- * NO additional HTML elements should be added to the index.html file.
- *
- * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
- *
- * SEE BELOW FOR THE CATEGORIES OF THE TYPES OF FUNCTIONS YOU WILL BE CREATING 👇
- * 
- */
 
 /********** TEMPLATE GENERATION FUNCTIONS **********/
 
-// These functions return HTML templates
-
+// This function returns the start page template
 function startPage() {
   return $('main').html(
     `<div class="container">
@@ -91,13 +74,15 @@ function startPage() {
                 <h1>2001: A Space Odyssey: The Quiz</h1>
                 <p> Daisy, daisy, give me your answer, do.</p>
               </div>
-              <div class="button-center">
-                <button id="startButton" type="submit">Start</button>
+              <div>
+                <button class="btn" id="startButton" type="submit">Start</button>
             </div>
         </div>
       </div>
     </div>`);
 }
+
+// This function returns the final score template
 function endPage() {
   return $('main').html(
     `<div class="container">
@@ -107,14 +92,16 @@ function endPage() {
             <h2>Final Score</h2>
             <p>${store.score} / ${store.outOf}</p>
         </div>
-        <div class="button-center">
-            <button id="js-restart">Restart</button>
+        <div>
+            <button class="btn" id="js-restart">Restart</button>
         </div>
         </div>
       </div>
     </div>`
   );
 }
+
+// This function returns the question page template
 function questionPage() {
   const question = store.questions[store.questionNumber].question;
   const answer1 = store.questions[store.questionNumber].answers[0];
@@ -142,8 +129,8 @@ function questionPage() {
                 <label for="answer3">${answer3}</label></span>
                 <span><input type="radio" id="${answer4}" name="answers" value="${answer4}" />
                 <label for="answer4">${answer4}</label></span>
-                <div class="button-center">
-                    <button id="js-button" type="submit">Submit</button>
+                <div>
+                    <button class="btn" id="js-button" type="submit">Submit</button>
                 </div>
             </form>
         </div>
@@ -151,6 +138,8 @@ function questionPage() {
     </div>`
   );
 }
+
+// This function returns the correct answer page template
 function correctAnswerPage() {
   const correct = store.questions[store.questionNumber].correctAnswer;
   return $('main').html(`<div class="container">
@@ -162,8 +151,8 @@ function correctAnswerPage() {
               <div class="item"><h2>Correct</h2><p>The correct answer was "${correct}".</p>
               </div>
               <form id="js-form">
-                <div class="button-center">
-                  <button id="js-next" type="submit">Next</button>
+                <div>
+                  <button class="btn" id="js-next" type="submit">Next</button>
                 </div>
               </form>
             </div>
@@ -171,6 +160,7 @@ function correctAnswerPage() {
   );
 }
 
+// This function returns the incorrect answer page template
 function wrongAnswerPage() {
   const correct = store.questions[store.questionNumber].correctAnswer;
 
@@ -183,8 +173,8 @@ function wrongAnswerPage() {
         </div>
         <div class="item"><h2>Human Error</h2><p>The correct answer was "${correct}.</p></div>
         <form id="js-form">
-          <div class="button-center">
-            <button id="js-next" type="submit">Next</button>
+          <div>
+            <button class="btn" id="js-next" type="submit">Next</button>
           </div>
         </form>
       </div>
@@ -192,33 +182,46 @@ function wrongAnswerPage() {
   );
   
 }
+
 /********** RENDER FUNCTION(S) **********/
 
-// This function conditionally replaces the contents of the <main> tag based on the state of the store
+// This function renders the start page
 function renderStartPage() {
   startPage();
 }
+
+// This function renders the final score page
 function renderEndPage() {
   endPage();
 }
+
+// This function renders the question page
 function renderQuestionPage() {
   questionPage();
   renderQuestionCount();
   renderScoreCount();
 }
+
+// This function renders the correct answer page
 function renderCorrectAnswerPage(){
   correctAnswerPage();
   renderQuestionCount();
   renderScoreCount();
 }
+
+// This function renders the incorrect answer page
 function renderWrongAnswerPage(){
   wrongAnswerPage();
   renderQuestionCount();
   renderScoreCount();
 }
+
+// This function renders the question count
 function renderQuestionCount() {
   return $('.question-count').html(`Question: ${store.questionNumber+1}/${store.questions.length}`);
 }
+
+// This function renders the score count
 function renderScoreCount() {
   return $('.score-count').html(
     `Score: ${store.score} / ${store.outOf}`
@@ -228,7 +231,7 @@ function renderScoreCount() {
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
-// These functions handle events (submit, click, etc)
+// This function handles the start game event
 function startGame() {
   $('main').on('click', '#startButton', () => {
     event.preventDefault();
@@ -236,6 +239,7 @@ function startGame() {
   });
 }
 
+// This function handles the submit answer event
 function handleSubmitAnswer() {
   $('main').on('click', '#js-button', (event) => {
     event.preventDefault();
@@ -248,6 +252,7 @@ function handleSubmitAnswer() {
   });
 }
 
+// This function handles the 'next' button event
 const handleNextButton = () => {
   $('main').on('click', '#js-next', (event) => {
     event.preventDefault();
@@ -260,6 +265,7 @@ const handleNextButton = () => {
 
 };
 
+// This function handles the restart game event
 const handleRestartGame = () => {
   $('main').on('click', '#js-restart', (event) => {
     event.preventDefault();
@@ -270,6 +276,7 @@ const handleRestartGame = () => {
   });
 };
 
+// This function handles the check answer event
 function checkAnswer(selected) {
   const correctAnswer = store.questions[store.questionNumber].correctAnswer; 
   if (selected === correctAnswer){
@@ -283,6 +290,7 @@ function checkAnswer(selected) {
   store.questionNumber++;
 }
 
+// This function is the master event handler
 function game() {
   
   renderStartPage();

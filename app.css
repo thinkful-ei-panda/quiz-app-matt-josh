@@ -1,15 +1,7 @@
-/* Your styles should be mobile-first and responsive */
-
-/** 
-  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
-  *
-  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
-  *
-*/
-
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&family=Roboto:wght@300;400;500&display=swap');
 
-
+/* Main & Container Styles */
 main {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
@@ -32,6 +24,7 @@ main {
     width: 100%;
 }
 
+/* Start & End Page Styles */
 .start, .end {
     background: url("https://thinkful-ei-panda.github.io/quiz-app-matt-josh/images/2001.jpg") center center / cover no-repeat;
     align-items: center;
@@ -42,6 +35,7 @@ main {
     width:100%
 }
 
+/* Header Font Styles */
 h1, h2, h3 {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
@@ -53,6 +47,7 @@ h1 {
     font-size: 1.5rem;
 }
 
+/* Flex Group & Item Styles */
 .group {
     display: flex;
     flex-direction: column;
@@ -79,24 +74,7 @@ h1 {
     text-align: left;
 }
 
-button {
-    border-radius: 4px;
-    border: 0px;
-    background-color: #EEA883;
-    width: 100px;
-    padding:10px 15px;
-    margin: 50px 0 0 0;
-}
-
-.button-center {
-    text-align: center;
-}
-
-button:hover {
-    background-color: #C08465;
-    cursor: pointer;
-  }
-
+/* Form & Button Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -107,3 +85,72 @@ form {
 input[type=radio] { 
     margin:10px; 
 }
+
+.btn {
+    font-size: .9rem;
+    
+    position: relative;
+  
+    display: block;
+    margin: 30px auto;
+  
+    overflow: hidden;
+  
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    
+    background-color: #EEA883;
+    color: #232323;
+    
+    transition: background-color .3s;
+  }
+  
+  .btn:hover, .btn:focus {
+    background-color: #C08465;
+  }
+  
+  .btn > * {
+    position: relative;
+  }
+  
+  .btn span {
+    display: block;
+    padding: 12px 24px;
+  }
+  
+ .btn:before {
+    content: "";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    display: block;
+    width: 0;
+    padding: 0;
+      
+    border-radius: 100%;
+    
+    background-color: rgba(236, 240, 241, .3);
+    
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+ .btn:active:before {
+    width: 120%;
+    padding-top: 120%;
+    
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+
+[type=button], [type=reset], [type=submit], button {
+    -webkit-appearance: button;
+    padding: 10px 30px;
+}
+

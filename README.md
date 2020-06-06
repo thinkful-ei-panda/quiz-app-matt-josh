@@ -1,6 +1,6 @@
 # quiz-app-matt-josh
 
-## 2001: A Speace Odyssey: A Quiz
+## 2001: A Space Odyssey: The Quiz
 
 ### Pairs -- Matt Patterson & Joshua Struve
 

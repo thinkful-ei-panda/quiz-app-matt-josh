@@ -19,19 +19,19 @@ const store = {
     {
       question: 'Who wrote the screenplay for \'2001: A Space Odyssey\'',
       answers: [
-        'Aruthur C. Clarke',
+        'Frank Herbert',
         'Phillip K. Dick',
         'Rod Serling',
-        'Frank Herbert'
+        'Arthur C. Clarke'
       ],
       correctAnswer: 'Arthur C. Clarke'
     },
     {
       question: 'What was the name of the spacecraft?',
       answers: [
-        'Discovery One',
-        'Enterprise',
         'Nostromo',
+        'Enterprise',
+        'Discovery One',
         'Nebuchadnezzar'
       ],
       correctAnswer: 'Discovery One'
@@ -39,8 +39,8 @@ const store = {
     {
       question: 'Who pilots the Discovery One?',
       answers: [
-        'Dr. David Bowman',
         'Hakaru Sulu',
+        'Dr. David Bowman',
         'Naomi',
         'Corbin Dallas'
       ],
@@ -49,10 +49,10 @@ const store = {
     {
       question: 'What is the name of the AI computer onboard Discovery One?',
       answers: [
-        'HAL-9000',
+        'Rehoboam',
         'GERTY',
         'David',
-        'Rehoboam'
+        'HAL-9000'
       ],
       correctAnswer: 'HAL-9000'
     }
@@ -101,19 +101,26 @@ function startPage() {
 function endPage() {
   return $('main').html(
     `<div class="container">
-      <div class="group">
-        <div class="item">
+      <div class="end">
+        <div class="group">
+          <div class="item">
             <h2>Final Score</h2>
-            <p>0 / 0</p>
+            <p>${store.score} / ${store.outOf}</p>
         </div>
         <div class="button-center">
-            <button id="restartButton">Restart</button>
+            <button id="js-restart">Restart</button>
+        </div>
         </div>
       </div>
     </div>`
   );
 }
 function questionPage() {
+  const question = store.questions[store.questionNumber].question;
+  const answer1 = store.questions[store.questionNumber].answers[0];
+  const answer2 = store.questions[store.questionNumber].answers[1];
+  const answer3 = store.questions[store.questionNumber].answers[2];
+  const answer4 = store.questions[store.questionNumber].answers[3];
 
   return $('main').html(
     `<div class="container">
@@ -123,18 +130,18 @@ function questionPage() {
             <div class="score-count"></div>
         </div>
         <div class="item">
-            <h2>${store.questions[store.questionNumber].question}</h2>
+            <h2>${question}</h2>
         </div>
         <div>
             <form id="js-form">
-                <span><input type="radio" id="${store.questions[store.questionNumber].answers[0]}" name="answers" value="${store.questions[store.questionNumber].answers[0]}" />
-                <label for="answer1">${store.questions[store.questionNumber].answers[0]}</label></span>
-                <span><input type="radio" id="${store.questions[store.questionNumber].answers[1]}" name="answers" value="${store.questions[store.questionNumber].answers[1]}" />
-                <label for="answer2">${store.questions[store.questionNumber].answers[1]}</label></span>
-                <span><input type="radio" id="${store.questions[store.questionNumber].answers[2]}" name="answers" value="${store.questions[store.questionNumber].answers[2]}" />
-                <label for="answer3">${store.questions[store.questionNumber].answers[2]}</label></span>
-                <span><input type="radio" id="${store.questions[store.questionNumber].answers[3]}" name="answers" value="${store.questions[store.questionNumber].answers[3]}" />
-                <label for="answer4">${store.questions[store.questionNumber].answers[3]}</label></span>
+                <span><input type="radio" id="${answer1}" name="answers" value="${answer1}" />
+                <label for="answer1">${answer1}</label></span>
+                <span><input type="radio" id="${answer2}" name="answers" value="${answer2}" />
+                <label for="answer2">${answer2}</label></span>
+                <span><input type="radio" id="${answer3}" name="answers" value="${answer3}" />
+                <label for="answer3">${answer3}</label></span>
+                <span><input type="radio" id="${answer4}" name="answers" value="${answer4}" />
+                <label for="answer4">${answer4}</label></span>
                 <div class="button-center">
                     <button id="js-button" type="submit">Submit</button>
                 </div>
@@ -145,23 +152,28 @@ function questionPage() {
   );
 }
 function correctAnswerPage() {
+  const correct = store.questions[store.questionNumber].correctAnswer;
   return $('main').html(`<div class="container">
             <div class="group">
               <div class="header">
                 <div class="question-count"></div>
                 <div class="score-count"></div>
               </div>
-              <div class="item"><h2>Correct</h2><p>The correct answer was "${store.questions[store.questionNumber].correctAnswer}".</p>
+              <div class="item"><h2>Correct</h2><p>The correct answer was "${correct}".</p>
               </div>
-              <div class="button-center">
-                <button id="js-next">Next</button>
-              </div>
+              <form id="js-form">
+                <div class="button-center">
+                  <button id="js-next" type="submit">Next</button>
+                </div>
+              </form>
             </div>
           </div>`
   );
 }
+
 function wrongAnswerPage() {
-  
+  const correct = store.questions[store.questionNumber].correctAnswer;
+
   return $('main').html(
     `<div class="container">
       <div class="group">
@@ -169,10 +181,12 @@ function wrongAnswerPage() {
           <div class="question-count"></div>
           <div class="score-count"></div>
         </div>
-        <div class="item"><h2>Sorry</h2><p>The correct answer was "${store.questions[store.questionNumber].correctAnswer}.</p></div>
-        <div class="button-center">
-          <button id="js-next">Next</button>
-        </div>
+        <div class="item"><h2>Human Error</h2><p>The correct answer was "${correct}.</p></div>
+        <form id="js-form">
+          <div class="button-center">
+            <button id="js-next" type="submit">Next</button>
+          </div>
+        </form>
       </div>
     </div>`
   );
@@ -238,6 +252,29 @@ function handleSubmitAnswer() {
   });
 }
 
+const handleNextButton = () => {
+  $('main').on('click', '#js-next', (event) => {
+    event.preventDefault();
+    if (store.questionNumber === store.questions.length) {
+      renderEndPage();
+    } else {
+      renderQuestionPage();
+    }
+  });
+
+};
+
+const handleRestartGame = () => {
+  $('main').on('click', '#js-restart', (event) => {
+    event.preventDefault();
+    store.questionNumber = 0;
+    store.score = 0;
+    store.outOf = 0;
+   
+    renderStartPage();
+  });
+};
+
 function checkAnswer(selected) {
   const correctAnswer = store.questions[store.questionNumber].correctAnswer; 
   console.log(correctAnswer)
@@ -249,13 +286,18 @@ function checkAnswer(selected) {
     store.outOf++;
     renderWrongAnswerPage();
   }
+  store.questionNumber++;
 }
 
+// const fade = () => { $('.container').fadeIn('slow');};
+
 function game() {
+  
   renderStartPage();
   startGame();
   handleSubmitAnswer();
-  
+  handleNextButton();
+  handleRestartGame();
 }
 
 $(game);

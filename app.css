@@ -30,17 +30,16 @@ main {
     justify-content: center;
     height: 100vh;
     width: 100%;
-    
 }
 
-.start {
+.start, .end {
     background: url("/images/2001.jpg") center center / cover no-repeat;
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100vh;
-    width: 100%;
+    width:100%
 }
 
 h1, h2, h3 {
@@ -57,6 +56,8 @@ h1 {
 .group {
     display: flex;
     flex-direction: column;
+    max-width: 400px;
+    padding: 10px;
 }
 
 .header {    
@@ -101,4 +102,8 @@ form {
     flex-direction: column;
     padding:20px;
     text-align: left;
+}
+
+input[type=radio] { 
+    margin:10px; 
 }

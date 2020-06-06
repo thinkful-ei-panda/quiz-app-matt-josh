@@ -134,11 +134,11 @@ function questionPage() {
         </div>
         <div>
             <form id="js-form">
-                <span><input type="radio" id="${answer1}" name="answers" value="${answer1}" />
+                <span><input type="radio" id="${answer1}" name="answers" value="${answer1}" required />
                 <label for="answer1">${answer1}</label></span>
-                <span><input type="radio" id="${answer2}" name="answers" value="${answer2}" />
+                <span><input type="radio" id="${answer2}" name="answers" value="${answer2}" required />
                 <label for="answer2">${answer2}</label></span>
-                <span><input type="radio" id="${answer3}" name="answers" value="${answer3}" />
+                <span><input type="radio" id="${answer3}" name="answers" value="${answer3}" required  />
                 <label for="answer3">${answer3}</label></span>
                 <span><input type="radio" id="${answer4}" name="answers" value="${answer4}" />
                 <label for="answer4">${answer4}</label></span>
@@ -247,7 +247,12 @@ function handleSubmitAnswer() {
   $('main').on('click', '#js-button', (event) => {
     event.preventDefault();
     let selectedAnswer = $("input[name='answers']:checked").val();
-    checkAnswer(selectedAnswer);
+    if(selectedAnswer === undefined) {
+      alert('Please select an answer');
+    } else {
+      checkAnswer(selectedAnswer);
+    }
+    
     console.log(selectedAnswer)
   });
 }

@@ -252,8 +252,6 @@ function handleSubmitAnswer() {
     } else {
       checkAnswer(selectedAnswer);
     }
-    
-    console.log(selectedAnswer)
   });
 }
 
@@ -275,14 +273,12 @@ const handleRestartGame = () => {
     store.questionNumber = 0;
     store.score = 0;
     store.outOf = 0;
-   
     renderStartPage();
   });
 };
 
 function checkAnswer(selected) {
   const correctAnswer = store.questions[store.questionNumber].correctAnswer; 
-  console.log(correctAnswer)
   if (selected === correctAnswer){
     store.score++;
     store.outOf++;
@@ -293,8 +289,6 @@ function checkAnswer(selected) {
   }
   store.questionNumber++;
 }
-
-// const fade = () => { $('.container').fadeIn('slow');};
 
 function game() {
   
